@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
     }
 
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, "a-string-secret-at-least-256-bits-long", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SIGN_KEY, (err, decoded) => {
         if (err) {
             return res.status(403).json({ error: "Invalid token" });
         }
