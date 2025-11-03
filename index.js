@@ -6,6 +6,7 @@ const mqtt = require("mqtt");
 const { Server } = require("socket.io");
 const http = require("http");
 const jwt = require("jsonwebtoken")
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
@@ -44,7 +45,6 @@ mqttClient.on("message", (_, message) => {
                 console.log(`Alert sent to user ${socket.user.id}`);
             } else {
                 console.log('usuario not in array');
-                
             }
         });
     } catch (err) {
@@ -64,7 +64,7 @@ io.use((socket, next) => {
         return next(new Error("No hay token"));
     }
 
-    jwt.verify(token, "a-string-secret-at-least-256-bits-long", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SIGN_KEY, (err, decoded) => {
         if (err) {
             return next(new Error("No hay token"));
         }
