@@ -4,7 +4,12 @@ export const services = [
         proxy: {
             target: "http://localhost:8080",
             changeOrigin: true,
-            pathRewrite: () => '/api/dispositivos'
+            pathRewrite: () => '/api/dispositivos',
+            on: {
+                proxyReq: (proxyReq, req, res) => {
+                    proxyReq.setHeader('X-Service-API-Key', 'clave-muy-secreta');
+                }
+            }
         },
     },
     {
@@ -20,7 +25,12 @@ export const services = [
         proxy: {
             target: "http://localhost:8086",
             changeOrigin: true,
-            pathRewrite: () => '/api/usuarios'
+            pathRewrite: () => '/api/usuarios',
+            on: {
+                proxyReq: (proxyReq, req, res) => {
+                    proxyReq.setHeader('X-Service-API-Key', 'your-secret-service-api-key-12345');
+                }
+            }
         }
     },
 ];
