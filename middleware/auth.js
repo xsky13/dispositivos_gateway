@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
 const authMiddleware = (req, res, next) => {
-    if (req.path.startsWith("/public")) {
+    if (req.path.startsWith("/public") || req.path.startsWith("/auth")) {
         return next();
     }
 

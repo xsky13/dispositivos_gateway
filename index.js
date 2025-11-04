@@ -13,11 +13,11 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     optionsSuccessStatus: 200,
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
-// app.use(authMiddleware);
+app.use(authMiddleware);
 
 
 const io = new Server(server, {
