@@ -36,7 +36,7 @@ export const services = [
             },
             on: {
                 proxyReq: (proxyReq, req, res) => {
-                    proxyReq.setHeader('X-Service-API-Key', 'clave-muy-secreta');
+                    proxyReq.setHeader('X-Service-API-Key', 'your-secret-service-api-key-12345');
                 }
             }
         },
@@ -70,7 +70,7 @@ export const services = [
             on: {
                 proxyReq: (proxyReq, req, res) => {
                     proxyReq.setHeader('X-Service-API-Key', 'your-secret-service-api-key-12345');
-                    const authHeader = req.headers["authorization"];
+                    const authHeader = req.headers["Authorization"];
                     if (authHeader) {
                         proxyReq.setHeader("Authorization", authHeader);
                     }
