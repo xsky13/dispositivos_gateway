@@ -76,6 +76,29 @@ export const services = [
                     }
                 }
             }
-        }
+        },
+    },
+    {
+        route: "/notificaciones",
+        proxy: {
+            target: "http://localhost:8086",
+            changeOrigin: true,
+            pathRewrite: (path, req) => {
+                let newPath = '/api/notificaciones' + path;
+                if (newPath.endsWith('/') && newPath !== '/') {
+                    newPath = newPath.slice(0, -1);
+                }
+                return newPath;
+            },
+            on: {
+                proxyReq: (proxyReq, req, res) => {
+                    proxyReq.setHeader('X-Service-API-Key', 'your-secret-service-api-key-12345');
+                    const authHeader = req.headers["Authorization"];
+                    if (authHeader) {
+                        proxyReq.setHeader("Authorization", authHeader);
+                    }
+                }
+            }
+        },
     },
 ];
